@@ -16,6 +16,7 @@ import okhttp3.Response;
 
 @Component
 public class GithubProvider {
+	@SuppressWarnings("deprecation")
 	public String getAccessToken(AccessTokenDTO accessTokenDTO) {
 		MediaType m= MediaType.get("application/json; charset=utf-8");
 		OkHttpClient client = new OkHttpClient();
