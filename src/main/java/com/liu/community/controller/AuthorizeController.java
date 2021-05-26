@@ -2,7 +2,9 @@ package com.liu.community.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,24 +39,26 @@ public class AuthorizeController {
 	@GetMapping("/callback")
 	public String callback(@RequestParam(name="code") String code,
 							@RequestParam(name="state") String state,
-							HttpServletRequest request ) {
+							HttpServletRequest request, 
+							HttpServletResponse response) {
 		AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
 		accessTokenDTO.setCode(code);
 		accessTokenDTO.setRedirect_uri(redirectUri);
 		accessTokenDTO.setClient_id(clientId);
 		accessTokenDTO.setClient_secret(clientSecret);
 		accessTokenDTO.setState(state);
-		String token=githubProvider.getAccessToken(accessTokenDTO);
-		GithubUser githubuser = githubProvider.getUser(token);
+		String accesstoken=githubProvider.getAccessToken(accessTokenDTO);
+		GithubUser githubuser = githubProvider.getUser(accesstoken);
 		if(githubuser!=null) {
 			User user=new User();
-			user.setToken(UUID.randomUUID().toString());
+			String token=UUID.randomUUID().toString();
+			user.setToken(token);
 			user.setName(githubuser.getName());
 			user.setAccountId(String.valueOf(githubuser.getId()));
 			user.setGmtCreate(System.currentTimeMillis());
 			user.setGmtModified(user.getGmtCreate());
 			userMapper.insert(user);
-			request.getSession().setAttribute("user", githubuser);
+			response.addCookie(new Cookie("token",token));
 			return "redirect:/";
 		}else {
 			return "redirect:/";

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>发布-SingerPigMan</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+	<script src="js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">SingerPigMan</span>
+      </button>
+      <a class="navbar-brand" href="#">SingerPigMan</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="搜索问题">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown" th:if="${session.user!=null}">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">消息中心</a></li>
+            <li><a href="#">个人资料</a></li>
+            <li><a href="#">退出登录</a></li>
+          </ul>
+       </li>
+      
+       <li th:if="${session.user==null}"><a href="https://github.com/login/oauth/authorize?client_id=69831f8aa606eea27b0e&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登录</a></li>
+        
+      </ul>
+    </div>
+   </div>
+</nav>
+	<div class="container-fluid" style="margin-right:30px;margin-left:30px;margin-bottom:30px">
+	  	<div class="row">
+	  		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+	  			<h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
+	  			<hr>
+	  			<form action="">
+	  				  <div class="form-group">
+					    <label for="title">问题标题</label>
+					    <input type="text" class="form-control" id="title" placeholder="问题标题">
+					  </div>
+					  <div class="form-group">
+					    <label for="description">问题补充</label>
+					    <textarea class="form-control" id="description" name="description" rows="30" cols="10" placeholder="问题补充"></textarea>
+					  </div>
+					  <div class="form-group">
+					    <label for="tag">添加标签:</label>
+					    <input class="form-control" type="text" id="tag" name="tag" placeholder="输入标签，逗号分隔"></input>
+					  </div>
+					  <button type="submit" class="btn btn-success" >发布</button>
+	  			</form>
+	  		</div>
+	  		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
+	  			<h3>问题发起指南</h3>
+	  				<p>*问题标题：请使用精简语言描述问题，不超过25个字</p><br>
+	  				<p>*问题补充：请详细补充您的问题内容，并确保描述清晰直观，并提供相关资料<p><br>
+	  				<p>*选择标签：选择一个或多个合适的标签，用逗号隔开，每个标签不超过十个字<p><br>
+	  		</div>
+  		</div>
+	</div>
+</body>
+</html>
