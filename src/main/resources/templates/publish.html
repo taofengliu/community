@@ -27,6 +27,9 @@
         <button type="submit" class="btn btn-default">搜索</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
+      <li th:if="${session.user!=null}">
+      	<a href="/publish">发布</a>
+      </li>
       <li class="dropdown" th:if="${session.user!=null}">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -47,20 +50,25 @@
 	  		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
 	  			<h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
 	  			<hr>
-	  			<form action="">
+	  			<form action="/publish" method="post">
 	  				  <div class="form-group">
 					    <label for="title">问题标题</label>
-					    <input type="text" class="form-control" id="title" placeholder="问题标题">
+					    <input th:value="${title}" type="text" class="form-control" id="title" name="title" placeholder="问题标题">
 					  </div>
 					  <div class="form-group">
 					    <label for="description">问题补充</label>
-					    <textarea class="form-control" id="description" name="description" rows="30" cols="10" placeholder="问题补充"></textarea>
+					    <textarea th:value="${description}" class="form-control" id="description" name="description" rows="30" cols="10" placeholder="问题补充"></textarea>
 					  </div>
 					  <div class="form-group">
 					    <label for="tag">添加标签:</label>
-					    <input class="form-control" type="text" id="tag" name="tag" placeholder="输入标签，逗号分隔"></input>
+					    <input th:value="${tag}" class="form-control" type="text" id="tag" name="tag" placeholder="输入标签，逗号分隔"></input>
 					  </div>
-					  <button type="submit" class="btn btn-success" >发布</button>
+					  <table>
+						<tr>
+						<td><button  type="submit" class="btn btn-success">发布</button></td>
+						<td><div th:if="${error!=null}"><span class="alert alert-danger" th:text="${error}"></span></div></td>
+						</tr>
+					  </table>
 	  			</form>
 	  		</div>
 	  		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
