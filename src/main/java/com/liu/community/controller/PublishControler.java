@@ -39,7 +39,8 @@ public class PublishControler {
 			Model model
 			) {
 		model.addAttribute("title",title);
-		model.addAttribute("despcription", description);
+		System.out.println(description);
+		model.addAttribute("description", description);
 		model.addAttribute("tag",tag);
 		if(title==null||title=="") {
 			model.addAttribute("error","标题不能为空");
@@ -80,7 +81,7 @@ public class PublishControler {
 		question.setGmtCreate(System.currentTimeMillis());
 		question.setGmtModified(question.getGmtCreate());
 		questionMapper.create(question);
-		return "index";
+		return "redirect:/";
 		
 	}
 }

@@ -59,6 +59,10 @@
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.6</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

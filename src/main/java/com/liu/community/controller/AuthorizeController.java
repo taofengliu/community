@@ -47,6 +47,7 @@ public class AuthorizeController {
 		accessTokenDTO.setClient_id(clientId);
 		accessTokenDTO.setClient_secret(clientSecret);
 		accessTokenDTO.setState(state);
+		
 		String accesstoken=githubProvider.getAccessToken(accessTokenDTO);
 		GithubUser githubuser = githubProvider.getUser(accesstoken);
 		if(githubuser!=null&&githubuser.getId()!=null) {
