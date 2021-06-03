@@ -17,15 +17,16 @@ import com.liu.community.dto.GithubUser;
 import com.liu.community.mapper.UserMapper;
 import com.liu.community.model.User;
 import com.liu.community.provider.GithubProvider;
+import com.liu.community.service.UserService;
 
 @Controller
 public class AuthorizeController {
 	
 	@Autowired
-	private UserMapper userMapper;
+	private GithubProvider githubProvider;
 	
 	@Autowired
-	private GithubProvider githubProvider;
+	private UserService userService;
 	
 	@Value("${github.client.id}")
 	private String clientId;
@@ -56,14 +57,21 @@ public class AuthorizeController {
 			user.setToken(token);
 			user.setName(githubuser.getName());
 			user.setAccountId(String.valueOf(githubuser.getId()));
-			user.setGmtCreate(System.currentTimeMillis());
-			user.setGmtModified(user.getGmtCreate());
 			user.setAvatarUrl(githubuser.getAvatar_url());
-			userMapper.insert(user);
+			userService.createUpdate(user);
 			response.addCookie(new Cookie("token",token));
 			return "redirect:/";
 		}else {
 			return "redirect:/";
 		}
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request,HttpServletResponse response) {
+		request.getSession().removeAttribute("user");
+		Cookie cookie=new Cookie("token",null);
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		return "redirect:/";
 	}
 }
