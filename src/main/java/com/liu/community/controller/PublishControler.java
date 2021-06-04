@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.liu.community.dto.QuestionDTO;
-import com.liu.community.mapper.QuestionMapper;
 import com.liu.community.model.Question;
 import com.liu.community.model.User;
 import com.liu.community.service.QuestionService;

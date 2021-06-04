@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.liu.community.dto.AccessTokenDTO;
 import com.liu.community.dto.GithubUser;
-import com.liu.community.mapper.UserMapper;
 import com.liu.community.model.User;
 import com.liu.community.provider.GithubProvider;
 import com.liu.community.service.UserService;

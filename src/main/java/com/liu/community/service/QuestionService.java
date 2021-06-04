@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.liu.community.dto.Pagination;
 import com.liu.community.dto.QuestionDTO;
+import com.liu.community.exception.CustomizeErrorCode;
+import com.liu.community.exception.CustomizeException;
+import com.liu.community.mapper.QuestionExtMapper;
 import com.liu.community.mapper.QuestionMapper;
 import com.liu.community.mapper.UserMapper;
 import com.liu.community.model.Question;
@@ -25,6 +28,8 @@ public class QuestionService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Autowired
+	private QuestionExtMapper questionExtMapper;
 	public Pagination list(Integer page, Integer size) {
 		Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
 		Integer totalPage;
@@ -92,6 +97,9 @@ public class QuestionService {
 	public QuestionDTO getById(Integer id) {
 		// TODO Auto-generated method stub
 		Question question= questionMapper.selectByPrimaryKey(id);
+		if(question==null) {
+			throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+		}
 		QuestionDTO quesiotnDTO=new QuestionDTO();
 		BeanUtils.copyProperties(question, quesiotnDTO);
 		User user=userMapper.selectByPrimaryKey(question.getCreator());
@@ -113,9 +121,22 @@ public class QuestionService {
 			question2.setTag(question.getTag());
 			QuestionExample questionExample = new QuestionExample();
 			questionExample.createCriteria().andIdEqualTo(question.getId());
-			questionMapper.updateByExampleSelective(question2,questionExample);
+			int updateByExampleSelective = questionMapper.updateByExampleSelective(question2,questionExample);
+			if(updateByExampleSelective!=1) {
+				throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+			}
 		}
 		
+	}
+
+	public void incview(Integer id) {
+		QuestionExample ques=new QuestionExample();
+		ques.createCriteria().andIdEqualTo(id);
+		List<Question> selectByExample = questionMapper.selectByExample(ques);
+		Question record=new Question();
+		record.setId(id);
+		record.setVeiwCount(selectByExample.get(0).getVeiwCount());
+		questionExtMapper.incVeiw(record);
 	}
 
 

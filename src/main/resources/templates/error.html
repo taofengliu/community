@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>SingerPigMan</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+	<script src="/js/jquery-3.3.1.min.js" type="application/javascript"></script>
+	<script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="~{nav::nav}"></div>
+<div class="container-fluid" style="margin-right:75px;margin-left:75px;margin-bottom:75px">
+	  	<div class="jumbotron">
+	  		<h1>出错啦！</h1>
+	  		<p th:text="${message}"></p>
+	  		<p><a class="btn btn-primary btn-lg" href="/" role="button">点击回到主页</a></p>
+	  	</div>
+</div>
+
+</body>
+</html>
