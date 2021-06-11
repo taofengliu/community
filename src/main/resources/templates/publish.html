@@ -7,46 +7,70 @@
 	<link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
 	<script src="/js/jquery-3.3.1.min.js" type="application/javascript"></script>
 	<script src="/js/bootstrap.min.js" type="application/javascript"></script>
+	<script src="/js/community.js" type="application/javascript"></script>
 </head>
-<body>
+<body style="background-color:#e1e4e8">
 <div th:insert="~{nav::nav}"></div>
-	<div class="container-fluid" style="margin-right:75px;margin-left:75px;margin-bottom:75px">
+	<div class="container-fluid" style="margin-right:75px;margin-left:75px;margin-bottom:75px;background-color:#fff">
 	  	<div class="row">
 	  		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
 	  			<h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
 	  			<hr>
-	  			<form action="/publish" method="post">
-	  			<input type="hidden" name="id" th:value="${id}">
-	  				  <div class="form-group">
-					    <label for="title">问题标题</label>
-					    <input th:value="${title}" type="text" class="form-control" id="title" name="title" placeholder="问题标题">
-					  </div>
-					  <div class="form-group">
-					    <label for="description">问题补充</label>
-					    <textarea th:text="${description}" class="form-control" id="description" name="description" rows="30" cols="10" placeholder="问题补充"></textarea>
-					  </div>
-					  <div class="form-group">
-					    <label for="tag">添加标签:</label>
-					    <input th:value="${tag}" class="form-control" type="text" id="tag" name="tag" placeholder="输入标签，逗号分隔"></input>
-					  </div >
-					 
-						<div class="container-fluid main">
-						<div class="row" >
-						<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-						<button  type="submit" class="btn btn-success btn-publish">发布</button>
+				<form action="/publish" method="post">
+					<input type="hidden" name="id" th:value="${id}">
+					<div class="form-group">
+						<label for="title">问题标题</label> <input th:value="${title}"
+							type="text" class="form-control" id="title" name="title"
+							placeholder="问题标题">
+					</div>
+					<div class="form-group">
+						<label for="description">问题补充</label>
+						<textarea th:text="${description}" class="form-control"
+							id="description" name="description" rows="30" cols="10"
+							placeholder="问题补充"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="tag">添加标签:</label> <input onclick="showTag()" autocomplete="off" th:value="${tag}"
+							class="form-control" type="text" id="tag" name="tag"
+							placeholder="输入或选择标签，英文逗号分隔"></input>
+							<div id="tags" style="display:none;margin-top:10px" >
+								
+								
+								  <!-- Nav tabs -->
+								  <ul class="nav nav-tabs" role="tablist" >
+								    <li role="presentation" th:each="tag:${tags}"><a th:text="${tag.categoryName}" th:href="${'#'+tag.categoryName}" aria-controls="home" role="tab" data-toggle="tab"></a></li>
+								  </ul>
+								
+								  <!-- Tab panes -->
+								  <div class="tab-content">
+								    <div role="tabpanel" style="margin:10px" class="tab-pane" th:each="tag:${tags}" th:id="${tag.categoryName}" th:class="${tagStat.first?'tab-pane active':'tab-pane'}">
+									    <span class="label label-info"  style="margin-right:8px;white-space:normal" th:each="selectTag:${tag.tags}" >
+											<span class="glyphicon glyphicon-tags"  onclick="selectTag(this)" th:text="${' '+selectTag}"></span>
+										</span>
+										
+								    </div>
+								    
+								  </div>
+						
+							</div>
+					</div>
+					<div class="container-fluid main">
+						<div class="row">
+							
+							<button type="submit" style="margin-bottom:10px" class="btn btn-success btn-publish pull-right">发布</button>
+							
+							<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+								<div 
+									class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+									th:if="${error!=null}" >
+									<span th:text="${error}" ></span></div>
+
+							</div>
 						</div>
-						<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
-								<div  class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"  th:if="${error!=null}"  th:text="${error}"></div>
-						
-						</div>
-						
-						
-						
-						</div>
-						</div>
-						
-	  			</form>
-	  		</div>
+					</div>
+
+				</form>
+			</div>
 	  		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
 	  			<h3>问题发起指南</h3>
 	  				<p>*问题标题：请使用精简语言描述问题，不超过25个字</p><br>

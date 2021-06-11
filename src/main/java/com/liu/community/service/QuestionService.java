@@ -1,12 +1,17 @@
 package com.liu.community.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.spring5.util.SpringContentTypeUtils;
 
 import com.liu.community.dto.Pagination;
 import com.liu.community.dto.QuestionDTO;
@@ -42,7 +47,9 @@ public class QuestionService {
 		else if(page>totalPage) page=totalPage;
 		if(page==0) page=1;
 		Integer offset=size*(page-1);
-		List<Question> questions=questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(),new RowBounds(offset,size));
+		QuestionExample questionExample = new QuestionExample();
+		questionExample.setOrderByClause("gmt_create desc");
+		List<Question> questions=questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample,new RowBounds(offset,size));
 		List<QuestionDTO> questionDTOList=new ArrayList<>();
 		Pagination pagination = new Pagination();
 		for(Question question:questions) {
@@ -52,7 +59,7 @@ public class QuestionService {
 			questionDTO.setUser(user);
 			questionDTOList.add(questionDTO);
 		}
-		pagination.setQuestions(questionDTOList);
+		pagination.setData(questionDTOList);
 		
 		
 		
@@ -60,7 +67,7 @@ public class QuestionService {
 		return pagination;
 	}
 
-	public Pagination list(Integer userId, Integer page, Integer size) {
+	public Pagination list(Long userId, Integer page, Integer size) {
 		QuestionExample questionExample = new QuestionExample();
 		questionExample.createCriteria().andCreatorEqualTo(userId);
 		Integer totalCount = (int) questionMapper.countByExample(questionExample);
@@ -86,7 +93,7 @@ public class QuestionService {
 			questionDTO.setUser(user);
 			questionDTOList.add(questionDTO);
 		}
-		pagination.setQuestions(questionDTOList);
+		pagination.setData(questionDTOList);
 		
 		
 		
@@ -94,7 +101,7 @@ public class QuestionService {
 		return pagination;
 	}
 
-	public QuestionDTO getById(Integer id) {
+	public QuestionDTO getById(Long id) {
 		// TODO Auto-generated method stub
 		Question question= questionMapper.selectByPrimaryKey(id);
 		if(question==null) {
@@ -111,6 +118,9 @@ public class QuestionService {
 		if(question.getId()==null) {
 			question.setGmtCreate(System.currentTimeMillis());
 			question.setGmtModified(question.getGmtCreate());
+			question.setCommentCount(0);
+			question.setVeiwCount(0);
+			question.setLikeCount(0);
 			questionMapper.insert(question);
 		}else {
 			
@@ -129,7 +139,7 @@ public class QuestionService {
 		
 	}
 
-	public void incview(Integer id) {
+	public void incview(Long id) {
 		QuestionExample ques=new QuestionExample();
 		ques.createCriteria().andIdEqualTo(id);
 		List<Question> selectByExample = questionMapper.selectByExample(ques);
@@ -137,6 +147,24 @@ public class QuestionService {
 		record.setId(id);
 		record.setVeiwCount(selectByExample.get(0).getVeiwCount());
 		questionExtMapper.incVeiw(record);
+	}
+
+	public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
+		if(StringUtils.isBlank(questionDTO.getTag())) {
+			return new ArrayList<QuestionDTO>();
+		}
+		String[] split = StringUtils.split(questionDTO.getTag(),',');
+		String collect = Arrays.stream(split).collect(Collectors.joining("|"));
+		Question question = new Question();
+		question.setId(questionDTO.getId());
+		question.setTag(collect);
+		List<Question> selectRelated = questionExtMapper.selectRelated(question);
+		List<QuestionDTO> collect2 = selectRelated.stream().map(q->{
+			QuestionDTO questionDTO2 = new QuestionDTO();
+			BeanUtils.copyProperties(q, questionDTO2);
+			return questionDTO2;
+			}).collect(Collectors.toList());
+		return collect2;
 	}
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.liu.community.dto.Pagination;
 import com.liu.community.model.User;
+import com.liu.community.service.NotificationService;
 import com.liu.community.service.QuestionService;
 
 @Controller
@@ -18,6 +19,9 @@ public class ProfileController {
 
 	@Autowired
 	private QuestionService questionService;
+	
+	@Autowired
+	private NotificationService notificationService;
 	
 	@GetMapping("profile/{action}")
 	public String profile(@PathVariable(name="action") String action,Model model, HttpServletRequest request,@RequestParam(name="page",defaultValue = "1") Integer page,
@@ -27,12 +31,16 @@ public class ProfileController {
 		if(action.equals("questions")) {
 			model.addAttribute("section","questions");
 			model.addAttribute("sectionName","我的发布");
+			Pagination list = questionService.list(user.getId(),page,size);
+			model.addAttribute("pagination",list);
 		}else if("replies".equals(action)) {
+			Pagination pagination=notificationService.list(user.getId(),page,size);
 			model.addAttribute("section","replies");
 			model.addAttribute("sectionName","最新回复");
+			model.addAttribute("pagination",pagination);
+			model.addAttribute("unreadCount",notificationService.unreadCount(user.getId()));
 		}
-		Pagination list = questionService.list(user.getId(),page,size);
-		model.addAttribute("pagination",list);
+		
 		return "profile";
 	}
 }

@@ -16,4 +16,13 @@
   <update id="incVeiw" parameterType="com.liu.community.model.Question">
     update QUESTION set veiw_count=#{veiwCount,jdbcType=INTEGER}+1 where id=#{id}
   </update>
+  
+  <update id="incCommentCount" parameterType="com.liu.community.model.Question">
+    update QUESTION set comment_count=#{commentCount,jdbcType=INTEGER}+comment_count where id=#{id}
+  </update>
+  
+  <select id="selectRelated" parameterType="com.liu.community.model.Question" resultMap="BaseResultMap">
+    select * from QUESTION
+    where id!=#{id} and tag regexp #{tag}
+  </select>
 </mapper>

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Pagination {
-	private List<QuestionDTO> questions;
+public class Pagination<T> {
+	private List<T> data;
 	private boolean showPrevious;
 	private boolean showFirstPage;
 	private boolean showNext;
@@ -20,11 +20,11 @@ public class Pagination {
 	}
 	private List<Integer> pages=new ArrayList<>();;
 	
-	public List<QuestionDTO> getQuestions() {
-		return questions;
+	public List<T> getData() {
+		return data;
 	}
-	public void setQuestions(List<QuestionDTO> questions) {
-		this.questions = questions;
+	public void setData(List<T> questions) {
+		this.data = questions;
 	}
 	public boolean isShowPrevious() {
 		return showPrevious;
