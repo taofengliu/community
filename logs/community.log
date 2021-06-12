@@ -1,0 +1,40 @@
+2021-06-12 20:09:56.735  INFO 4768 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2021-06-12 20:09:56.738  INFO 4768 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-06-12 20:12:12.556  INFO 4768 --- [Thread-17] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2021-06-12 20:12:12.572  INFO 4768 --- [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2021-06-12 20:12:12.778  INFO 4768 --- [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2021-06-12 20:12:12.826  INFO 4768 --- [restartedMain] c.l.community.JavaCommunityApplication   : Starting JavaCommunityApplication using Java 15.0.1 on LAPTOP-M1HEEHKQ with PID 4768 (C:\Users\liu\eclipse-workspace\JavaCommunity\target\classes started by liu in C:\Users\liu\eclipse-workspace\JavaCommunity)
+2021-06-12 20:12:12.826  INFO 4768 --- [restartedMain] c.l.community.JavaCommunityApplication   : No active profile set, falling back to default profiles: default
+2021-06-12 20:12:13.005  INFO 4768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-06-12 20:12:13.005  INFO 4768 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-06-12 20:12:13.005  INFO 4768 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-06-12 20:12:13.017  INFO 4768 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-06-12 20:12:13.020  INFO 4768 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 192 ms
+2021-06-12 20:12:13.026  INFO 4768 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2021-06-12 20:12:13.031  INFO 4768 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2021-06-12 20:12:13.031  INFO 4768 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:~/JavaCommunity'
+2021-06-12 20:12:13.125  INFO 4768 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-06-12 20:12:13.149  INFO 4768 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-06-12 20:12:13.155  INFO 4768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-06-12 20:12:13.157  INFO 4768 --- [restartedMain] c.l.community.JavaCommunityApplication   : Started JavaCommunityApplication in 0.355 seconds (JVM running for 749.849)
+2021-06-12 20:12:13.157  INFO 4768 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
+2021-06-12 20:12:13.158  INFO 4768 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2021-06-12 20:12:13.159  INFO 4768 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-06-12 20:14:23.089  INFO 4768 --- [Thread-23] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2021-06-12 20:14:23.121  INFO 4768 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2021-06-12 20:14:23.323  INFO 4768 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2021-06-12 20:14:23.373  INFO 4768 --- [restartedMain] c.l.community.JavaCommunityApplication   : Starting JavaCommunityApplication using Java 15.0.1 on LAPTOP-M1HEEHKQ with PID 4768 (C:\Users\liu\eclipse-workspace\JavaCommunity\target\classes started by liu in C:\Users\liu\eclipse-workspace\JavaCommunity)
+2021-06-12 20:14:23.373  INFO 4768 --- [restartedMain] c.l.community.JavaCommunityApplication   : No active profile set, falling back to default profiles: default
+2021-06-12 20:14:23.551  INFO 4768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-06-12 20:14:23.551  INFO 4768 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-06-12 20:14:23.551  INFO 4768 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-06-12 20:14:23.565  INFO 4768 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-06-12 20:14:23.565  INFO 4768 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 190 ms
+2021-06-12 20:14:23.572  INFO 4768 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2021-06-12 20:14:23.577  INFO 4768 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2021-06-12 20:14:23.577  INFO 4768 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:~/JavaCommunity'
+2021-06-12 20:14:23.670  INFO 4768 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-06-12 20:14:23.695  INFO 4768 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-06-12 20:14:23.702  INFO 4768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-06-12 20:14:23.705  INFO 4768 --- [restartedMain] c.l.community.JavaCommunityApplication   : Started JavaCommunityApplication in 0.356 seconds (JVM running for 880.397)
+2021-06-12 20:14:23.705  INFO 4768 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT

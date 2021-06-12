@@ -80,6 +80,7 @@ public class CommentService {
 			if(selectByPrimaryKey==null) {
 				throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
 			}else {
+				comment.setCommentCount(0);
 				commentMapper.insert(comment);
 				selectByPrimaryKey.setCommentCount(1);
 				extMapper.incCommentCount(selectByPrimaryKey);

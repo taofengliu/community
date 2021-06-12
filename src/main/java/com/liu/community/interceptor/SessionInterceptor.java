@@ -10,14 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.liu.community.dto.NotificationDTO;
 import com.liu.community.mapper.UserMapper;
 import com.liu.community.model.UserExample;
+import com.liu.community.service.NotificationService;
 
 @Service
 public class SessionInterceptor implements HandlerInterceptor{
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired 
+	private NotificationService notificationService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -34,6 +39,8 @@ public class SessionInterceptor implements HandlerInterceptor{
 					List<com.liu.community.model.User> users = userMapper.selectByExample(userExample);
 					if(users.size()!=0) {
 						request.getSession().setAttribute("user", users.get(0));
+						Long unreadCount =  notificationService.unreadCount(users.get(0).getId());
+						request.getSession().setAttribute("unreadCount", unreadCount);
 					}
 					break;
 				}

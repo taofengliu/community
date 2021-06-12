@@ -28,14 +28,26 @@ public class TagCache {
 		arrayList.add(program);
 		arrayList.add(framework);
 		arrayList.add(database);
+		arrayList.add(server);
 		return arrayList;
 	}
 	
 	public static String filterInvalid(String tags) {
 		String[] split = StringUtils.split(tags,",");
+		
 		List<TagDTO> tagDTOs=get();
 		List<String> tagList= tagDTOs.stream().flatMap(tag->tag.getTags().stream()).collect(Collectors.toList());
-	    String invalid=Arrays.stream(split).filter(t->!tagList.contains(t)).collect(Collectors.joining(","));
+	    String invalid=Arrays.stream(split).filter(t->{
+	    	for(String s:tagList) {
+	    		t=t.trim();
+	    		s=s.trim();
+	    		if(s.equals(t)) {
+	    			System.out.println(false);
+	    			return false;
+	    		}
+	    	}
+			return true;
+	    }).collect(Collectors.joining(","));
 		return invalid;
 	}
 }

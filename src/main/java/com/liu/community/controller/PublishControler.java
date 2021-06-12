@@ -58,7 +58,7 @@ public class PublishControler {
 			return "publish";
 		}
 		if(description==null||description=="") {
-			model.addAttribute("error","问题补充不能为空");
+			model.addAttribute("error","问题描述不能为空");
 			return "publish";
 		}
 		if(tag==null||tag=="") {

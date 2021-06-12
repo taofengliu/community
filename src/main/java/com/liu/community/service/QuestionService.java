@@ -15,6 +15,7 @@ import org.thymeleaf.spring5.util.SpringContentTypeUtils;
 
 import com.liu.community.dto.Pagination;
 import com.liu.community.dto.QuestionDTO;
+import com.liu.community.dto.QuestionQueryDTO;
 import com.liu.community.exception.CustomizeErrorCode;
 import com.liu.community.exception.CustomizeException;
 import com.liu.community.mapper.QuestionExtMapper;
@@ -35,8 +36,16 @@ public class QuestionService {
 	
 	@Autowired
 	private QuestionExtMapper questionExtMapper;
-	public Pagination list(Integer page, Integer size) {
-		Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+	
+	public Pagination list(String search,Integer page, Integer size) {
+		if(StringUtils.isNotBlank(search)) {
+			String[] split = StringUtils.split(search,' ');
+			search = Arrays.stream(split).collect(Collectors.joining("|"));
+		}
+		
+		QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+		questionQueryDTO.setSearch(search);
+		Integer totalCount = (int) questionExtMapper.countBySearch(questionQueryDTO);
 		Integer totalPage;
 		if(totalCount%size==0) {
 			totalPage=totalCount/size;
@@ -49,7 +58,9 @@ public class QuestionService {
 		Integer offset=size*(page-1);
 		QuestionExample questionExample = new QuestionExample();
 		questionExample.setOrderByClause("gmt_create desc");
-		List<Question> questions=questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample,new RowBounds(offset,size));
+		questionQueryDTO.setSize(size);
+		questionQueryDTO.setPage(offset);
+		List<Question> questions=questionExtMapper.selectBySearch(questionQueryDTO);
 		List<QuestionDTO> questionDTOList=new ArrayList<>();
 		Pagination pagination = new Pagination();
 		for(Question question:questions) {
