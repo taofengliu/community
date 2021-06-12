@@ -2,8 +2,16 @@ package com.liu.community.dto;
 
 public class QuestionQueryDTO {
 	private String search;
+	private String tag;
 	private Integer page;
 	private Integer size;
+	
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 	public String getSearch() {
 		return search;
 	}
